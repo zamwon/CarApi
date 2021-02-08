@@ -4,14 +4,14 @@ package pl.karnecki.carrest.model;
 import java.util.Objects;
 
 
-public class Car{
-    Long id;
+public class Car {
+    Long carId;
     String mark;
     String model;
     String color;
 
-    public Car(Long id, String mark, String model, String color) {
-        this.id = id;
+    public Car(Long carId, String mark, String model, String color) {
+        this.carId = carId;
         this.mark = mark;
         this.model = model;
         this.color = color;
@@ -21,11 +21,11 @@ public class Car{
     }
 
     public Long getCarId() {
-        return id;
+        return carId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCarId(Long carId) {
+        this.carId = carId;
     }
 
     public String getMark() {
@@ -55,7 +55,7 @@ public class Car{
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
+                "id=" + carId +
                 ", mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
                 ", color='" + color + '\'' +
@@ -66,13 +66,12 @@ public class Car{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Car car = (Car) o;
-        return Objects.equals(id, car.id) && Objects.equals(mark, car.mark) && Objects.equals(model, car.model) && Objects.equals(color, car.color);
+        return Objects.equals(carId, car.carId) && Objects.equals(mark, car.mark) && Objects.equals(model, car.model) && Objects.equals(color, car.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, mark, model, color);
+        return Objects.hash(carId, mark, model, color);
     }
 }

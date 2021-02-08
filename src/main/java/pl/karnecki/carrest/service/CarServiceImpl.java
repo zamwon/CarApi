@@ -3,6 +3,7 @@ package pl.karnecki.carrest.service;
 import org.springframework.stereotype.Service;
 import pl.karnecki.carrest.model.Car;
 import pl.karnecki.carrest.repository.CarRepository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,12 +21,12 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getAllCars() {
-        return carRepository.createListOfCars();
+        return carRepository.getCarList();
     }
 
     @Override
     public Optional<Car> getCarById(Long id) {
-        return carRepository.createListOfCars()
+        return carRepository.getCarList()
                 .stream()
                 .filter(car -> car.getCarId().equals(id))
                 .findFirst();
@@ -33,22 +34,25 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getCarsByColor(String color) {
-        return carRepository.createListOfCars()
+        return carRepository.getCarList()
                 .stream()
                 .filter(car -> car.getColor().equalsIgnoreCase(color))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Car> addCar(Car car) {
-        boolean isCarOnList = carRepository.createListOfCars()
+    public boolean addCar(Car car) {
+        boolean isCarOnList = carRepository.getCarList()
                 .stream()
-                .anyMatch(element -> element.getCarId().equals(car.getCarId()) && element.getMark().equals(car.getMark()) && element.getModel().equals(car.getModel()));
-        return isCarOnList ? Optional.empty() : Optional.of(car);
+                .anyMatch(element ->
+                        element.getCarId().equals(car.getCarId()));
+        if (isCarOnList) return false;
+        carRepository.addCarToList(car);
+        return true;
     }
 
     @Override
-    public void deleteCar(Long id) {
-        carRepository.createListOfCars().remove(id);
+    public boolean deleteCar(Long id) {
+        return carRepository.removeCarFromList(id);
     }
 }

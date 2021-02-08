@@ -60,13 +60,13 @@ public class CarController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> addCar(@RequestBody Car car) {
-        Optional<Car> newCar = carService.addCar(car);
-        if (newCar.isPresent()) {
+        boolean isAdded = carService.addCar(car);
+        if (isAdded) {
             log.info("New car: " + car + " created");
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         log.info("Adding car unsuccessful");
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
