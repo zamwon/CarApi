@@ -45,8 +45,19 @@ public class CarRepository {
                 .findFirst();
 
         if (carOptional.isPresent()) {
-            carList.remove(id);
+            carList.remove(id.intValue());
             return true;
+        }
+        return false;
+    }
+
+    public boolean modify(Car car) {
+        Optional<Car> carOptional = carList.stream()
+                .filter(oldCar -> oldCar.getCarId().equals(car.getCarId()))
+                .findFirst();
+        if (carOptional.isPresent()) {
+            carList.remove(carOptional.get());
+            return carList.add(car);
         }
         return false;
     }

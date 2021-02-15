@@ -55,4 +55,17 @@ public class CarServiceImpl implements CarService {
     public boolean deleteCar(Long id) {
         return carRepository.removeCarFromList(id);
     }
+
+    @Override
+    public boolean modifyCar(Car car) {
+        boolean isCarOnList = carRepository.getCarList()
+                .stream()
+                .anyMatch(element ->
+                        element.getCarId().equals(car.getCarId()));
+        if (isCarOnList) {
+            carRepository.modify(car);
+            return true;
+        } else
+            return false;
+    }
 }

@@ -69,12 +69,10 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> modifyCar(@PathVariable Long id, @RequestBody Car car) {
-        Optional<Car> newCar = carService.getCarById(id);
-        if (newCar.isPresent()) {
-            carService.deleteCar(id);
-            carService.addCar(car);
+    @PutMapping()
+    public ResponseEntity<HttpStatus> modifyCar(@RequestBody Car car) {
+        if(car.getCarId() != null){
+            carService.modifyCar(car);
             log.info("Car modification successful");
             return new ResponseEntity<>(HttpStatus.OK);
         }
