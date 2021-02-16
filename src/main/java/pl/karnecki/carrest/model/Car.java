@@ -1,10 +1,9 @@
 package pl.karnecki.carrest.model;
 
-
 import java.util.Objects;
 
 
-public class Car {
+public class Car{
     Long carId;
     String mark;
     String model;

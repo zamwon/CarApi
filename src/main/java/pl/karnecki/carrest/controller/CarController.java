@@ -1,15 +1,16 @@
 package pl.karnecki.carrest.controller;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.karnecki.carrest.model.Car;
-
 import pl.karnecki.carrest.service.CarServiceImpl;
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Slf4j
 @RestController
@@ -24,7 +25,9 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping
+    @GetMapping(produces = {
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Car>> getAllCars() {
         log.info("Returned list of all cars");
         return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
@@ -32,7 +35,6 @@ public class CarController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Car>> getCarById(@PathVariable Long id) {
-
         Optional<Car> first = carService.getCarById(id);
         if (first.isPresent()) {
             log.info("Found car with id: " + id);
