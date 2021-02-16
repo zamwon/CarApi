@@ -71,7 +71,7 @@ public class CarController {
 
     @PutMapping()
     public ResponseEntity<HttpStatus> modifyCar(@RequestBody Car car) {
-        if(car.getCarId() != null){
+        if (car.getCarId() != null) {
             carService.modifyCar(car);
             log.info("Car modification successful");
             return new ResponseEntity<>(HttpStatus.OK);
@@ -81,8 +81,27 @@ public class CarController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> modifyCarField(@PathVariable Long id, @PathVariable(required = false) String mark) {
+    public ResponseEntity<HttpStatus> modifyCarField(@PathVariable Long id, @RequestBody Car car) {
+        Optional<Car> oldCar = carService.getCarById(id);
+        if (oldCar.isEmpty()) {
+            log.info("Car not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Car carToUpdate = oldCar.get();
 
+        if (car.getMark() != null) {
+            carToUpdate.setMark(car.getMark());
+            log.info("Car mark modification successful");
+        }
+        if (car.getModel() != null) {
+            carToUpdate.setModel(car.getModel());
+            log.info("Car model modification successful");
+        }
+        if (car.getColor() != null) {
+            carToUpdate.setColor(car.getColor());
+            log.info("Car color modification successful");
+        }
+        carService.modifyCar(carToUpdate);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
