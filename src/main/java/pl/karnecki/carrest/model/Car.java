@@ -1,9 +1,12 @@
 package pl.karnecki.carrest.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 
 public class Car{
+
+    @NotNull(message = "id cannot be null")
     Long carId;
     String mark;
     String model;

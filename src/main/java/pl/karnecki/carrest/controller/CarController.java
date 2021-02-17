@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.karnecki.carrest.model.Car;
 import pl.karnecki.carrest.service.CarServiceImpl;
@@ -61,7 +62,7 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> addCar(@RequestBody Car car) {
+    public ResponseEntity<HttpStatus> addCar(@Validated @RequestBody Car car) {
         boolean isAdded = carService.addCar(car);
         if (isAdded) {
             log.info("New car: " + car + " created");
