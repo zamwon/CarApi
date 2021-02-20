@@ -2,6 +2,7 @@ package pl.karnecki.carrest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class CarController {
 
     private final CarServiceImpl carService;
 
-
+    @Autowired
     public CarController(CarServiceImpl carService) {
         this.carService = carService;
     }

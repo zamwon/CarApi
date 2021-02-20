@@ -1,5 +1,6 @@
 package pl.karnecki.carrest.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.karnecki.carrest.model.Car;
 import pl.karnecki.carrest.repository.CarRepository;
@@ -14,6 +15,7 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
 
+    @Autowired
     public CarServiceImpl(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
