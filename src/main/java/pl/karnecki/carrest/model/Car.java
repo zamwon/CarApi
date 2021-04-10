@@ -1,8 +1,8 @@
 package pl.karnecki.carrest.model;
 
+import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
-
 
 public class Car {
 
@@ -21,6 +21,8 @@ public class Car {
         this.productionYear = productionYear;
     }
 
+    public Car() {
+    }
 
     public int getProductionYear() {
         return productionYear;

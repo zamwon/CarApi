@@ -3,14 +3,16 @@ package pl.karnecki.carrest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.karnecki.carrest.model.Car;
 import pl.karnecki.carrest.service.CarServiceImpl;
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("/cars")
 public class CarController {
 
@@ -23,9 +25,12 @@ public class CarController {
 
     }
 
-    @GetMapping()
-    public List<Car> getAllCars() {
-        return carService.getAllCars();
+    @GetMapping("/all")
+    public String getAllCars(Model model) {
+        final List<Car> listOfCars = carService.getAllCars();
+        model.addAttribute("listOfCars", listOfCars);
+        model.addAttribute("car1", new Car());
+        return "allCarsPage";
     }
 
     @GetMapping("/{id}")
@@ -57,13 +62,10 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<HttpStatus> addCar(@Validated @RequestBody Car car) {
-        boolean isAdded = carService.addCar(car);
-        if (isAdded) {
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @PostMapping("/add-car")
+    public String addCar(@ModelAttribute Car car) {
+        carService.addCar(car);
+        return "redirect:/cars/all";
     }
 
     @PutMapping()
