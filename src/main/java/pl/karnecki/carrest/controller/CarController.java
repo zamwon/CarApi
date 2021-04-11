@@ -27,7 +27,7 @@ public class CarController {
 
     @GetMapping("/all")
     public String getAllCars(Model model) {
-        final List<Car> listOfCars = carService.getAllCars();
+        List<Car> listOfCars = carService.getAllCars();
         model.addAttribute("listOfCars", listOfCars);
         model.addAttribute("car1", new Car());
         return "allCarsPage";

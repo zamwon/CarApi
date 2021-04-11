@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car catalogue API</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    p:first-child {
+        margin: 0
+    }
+
+    div {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+
+    }
+
+    table, th, td {
+        border: 1px solid #000000;
+        border-collapse: collapse;
+        vertical-align: top;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+    }
+    tr:nth-child(even){
+        background-color: darkgrey;
+    }
+    tr:nth-child(odd){
+        background-color: antiquewhite;
+    }
+    tr.header {
+        background-color: darksalmon;
+    }
+</style>
+<body>
+
+
+<h1>ALL CARS!</h1>
+<div>
+    <button><a th:href="@{http://localhost:8080/cars/add-car}" th:method="get"></a>Add new car!</button>
+    <button> <a th:href="@{http://localhost:8080/cars/since/{year}/to/{year2}}" th:method="get"></a>Find desired car!</button>
+</div>
+<button><a th:href="@{http://localhost:8080/}" th:method="get">← Return</a></button>
+<div>
+    <table>
+        <tr class="header">
+            <th>Car ID</th>
+            <th>Mark</th>
+            <th>Model</th>
+            <th>Color</th>
+            <th>Production Year</th>
+        </tr>
+        <tr th:each="car: ${listOfCars}">
+            <td th:text="${car.getCarId()}"></td>
+            <td th:text="${car.getMark()}"></td>
+            <td th:text="${car.getModel()}"></td>
+            <td th:text="${car.getColor()}"></td>
+            <td th:text="${car.getProductionYear()}"></td>
+            <td><a th:href="@{/{id}(id=${car.getCarId()})}">Edit</a></td>
+        </tr>
+    </table>
+</div>
+<h1>Get ALL</h1>
+<form th:action="@{/cars/add-car}" th:object="${car1}" method="post">
+    <p><input type="text" id="fid" placeholder="Type next id" th:field="*{carId}"></p>
+    <p><input type="text" id="fmark" placeholder="Type car mark" th:field="*{mark}"></p>
+    <p><input type="text" id="fmodel" placeholder="Type car model" th:field="*{model}"></p>
+    <p><input type="text" id="fcolor" placeholder="Type car color" th:field="*{color}"></p>
+    <p><input type="text" id="fprodY" placeholder="Type production year.." th:field="*{productionYear}"></p>
+    <p><input type="submit" value="ADD NEW CAR"></p>
+</form>
+</body>
+</html>

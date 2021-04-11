@@ -18,7 +18,14 @@ public class DbConfig {
 
     @Bean
     public JdbcTemplate getJdbcTemplate(){
-        return new JdbcTemplate(dataSource);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+//        jdbcTemplate.execute("CREATE TABLE cars ( " +
+//                "  id bigint AUTO_INCREMENT PRIMARY KEY, " +
+//                "  mark VARCHAR(250) , " +
+//                "  model VARCHAR(250), " +
+//                "  color VARCHAR(250) DEFAULT NULL, " +
+//                "  productionYear INTEGER DEFAULT NULL " +
+//                ")");
+        return jdbcTemplate;
     }
-
 }
