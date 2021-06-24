@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pokemon API</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    p:first-child {
+        margin: 0
+    }
+
+    div {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+
+    }
+
+    table, th, td {
+        border: 1px solid #000000;
+        border-collapse: collapse;
+        vertical-align: top;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+    }
+    tr:nth-child(even){
+        background-color: darkgrey;
+    }
+    tr:nth-child(odd){
+        background-color: antiquewhite;
+    }
+    tr.header {
+        background-color: darksalmon;
+    }
+</style>
+<body>
+
+
+<h1>ALL Pokemons!</h1>
+<div>
+    <button><a th:href="@{http://localhost:8080/pokemon/add-pokemon}" th:method="post"></a>Add new pokemon!</button>
+    <button> <a th:href="@{http://localhost:8080/pokemon/name/{name}}" th:method="get"></a>Find desired Pokemon!</button>
+</div>
+<button><a th:href="@{http://localhost:8080/}" th:method="get">← Return</a></button>
+<div>
+    <table>
+        <tr class="header">
+            <th>Pokemon ID</th>
+            <th>Name</th>
+            <th>Type</th>
+
+        </tr>
+        <tr th:each="pokemon: ${listOfPokemon}">
+            <td th:text="${pokemon.getPokemonId()}"></td>
+            <td th:text="${pokemon.getName()}"></td>
+            <td th:text="${pokemon.getType()}"></td>
+            <td><a th:href="@{/{id}(id=${pokemon.getPokemonId()})}">Edit</a></td>
+        </tr>
+    </table>
+</div>
+<h1>Get ALL</h1>
+<form th:action="@{/pokemon/add-pokemon}" th:object="${pokemon1}" method="post">
+    <p><input type="text" id="fid" placeholder="Type next id" th:field="*{pokemonId}"></p>
+    <p><input type="text" id="fname" placeholder="Type pokemon name" th:field="*{name}"></p>
+    <p><input type="text" id="ftype" placeholder="Type pokemon type" th:field="*{type}"></p>
+    <p><input type="submit" value="ADD NEW POKEMON"></p>
+</form>
+</body>
+</html>

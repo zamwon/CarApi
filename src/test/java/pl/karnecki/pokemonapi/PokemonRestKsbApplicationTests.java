@@ -1,10 +1,10 @@
-package pl.karnecki.carrest;
+package pl.karnecki.pokemonapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CarRestKsbApplicationTests {
+class PokemonRestKsbApplicationTests {
 
     @Test
     void contextLoads() {

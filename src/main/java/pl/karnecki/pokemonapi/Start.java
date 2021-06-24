@@ -1,16 +1,16 @@
-package pl.karnecki.carrest;
+package pl.karnecki.pokemonapi;
 
 import org.springframework.stereotype.Component;
-import pl.karnecki.carrest.dal.CarDao;
+import pl.karnecki.pokemonapi.dal.PokemonDao;
 
 
 @Component
 public class Start {
 
-    CarDao carDao;
+    PokemonDao pokemonDao;
 
-    public Start(CarDao carDao) {
-        this.carDao = carDao;
+    public Start(PokemonDao pokemonDao) {
+        this.pokemonDao = pokemonDao;
 //
 //        carDao.saveCar(1L, "Toyota", "RAV4", "RED", 2015);
 //        carDao.saveCar(2L, "BMW", "760Li", "BLACK", 2021);
